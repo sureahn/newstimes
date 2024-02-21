@@ -1,0 +1,126 @@
+body {
+  background-color: #e7e7e7;
+}
+
+.head-line {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.head-line svg {
+  width: 430px;
+}
+
+.side-menu {
+  display: none;
+}
+
+.menus {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1em;
+  border-top: 1px solid #a8a8a8;
+  border-bottom: 4px double black;
+}
+
+.menus button {
+  border: none;
+  background: none;
+  margin: 5px;
+  color: #686868;
+}
+
+.menus button:hover {
+  font-weight: 600;
+  color: black;
+}
+
+.news {
+  border-bottom: 2px solid black;
+  padding: 1em;
+}
+
+.news-img-size {
+  max-width: 100%;
+}
+
+.news #news-title {
+  white-space: nowrap; /* 텍스트가 한 줄로만 표시되도록 함 */
+  overflow: hidden; /* 요소 영역을 벗어나는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 텍스트가 요소 영역을 벗어날 때 말줄임표로 표시 */
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 0 1em;
+  }
+
+  .menus {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 24px;
+  }
+
+  .side-menu {
+    display: block;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(33, 33, 32);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  .side-menu-list button {
+    margin: 5px;
+    border: none;
+    background: none;
+    width: 120px;
+  }
+
+  .side-menu .closebtn {
+    position: absolute;
+    top: 12.5px;
+    right: 12.5px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 48px;
+    margin-left: 50px;
+    border: none;
+    background: none;
+    color: #e7e7e7;
+    font-weight: 100;
+  }
+
+  .side-menu-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .side-menu-list button {
+    color: #7b7b7b;
+    padding: 1vh;
+  }
+
+  .side-menu-list button:hover {
+    color: #e7e7e7;
+    width: 100%;
+    background-color: rgb(57, 57, 57);
+  }
+}
