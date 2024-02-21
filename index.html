@@ -23,36 +23,40 @@
     <link rel="icon" href="favicon.png" />
   </head>
   <body>
-    <div class="side-menu" id="mySidenav">
-      <button class="closebtn" onclick="closeNav()">&times;</button>
-      <div class="side-menu-list" id="menu-list">
-        <button>Sport</button>
-        <button>Tech</button>
-        <button>World</button>
-        <button>Finance</button>
-        <button>Politics</button>
-        <button>Business</button>
-        <button>Economics</button>
-        <button>Entertainment</button>
-        <button>Beauty</button>
-        <button>Travel</button>
-        <button>Music</button>
-        <button>Food</button>
-        <button>Science</button>
-        <button>Gaming</button>
-        <button>Energy</button>
-      </div>
-    </div>
-    <!-- 생략 -->
-    <!-- 햄버거 버튼 추가  -->
-    <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
     <section class="container">
-      <div class="search-box">
-        <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
-        <span id="input-area">
-          <input type="text" id="search-input" placeholder="search" />
-          <button class="search-button" onclick="searchNews()">Go</button>
-        </span>
+      <div class="nav">
+        <div class="side-nav">
+          <div class="side-menu" id="mySidenav">
+            <button class="closebtn" onclick="closeNav()">&times;</button>
+            <div class="side-menu-list" id="menu-list">
+              <button>Sport</button>
+              <button>Tech</button>
+              <button>World</button>
+              <button>Finance</button>
+              <button>Politics</button>
+              <button>Business</button>
+              <button>Economics</button>
+              <button>Entertainment</button>
+              <button>Beauty</button>
+              <button>Travel</button>
+              <button>Music</button>
+              <button>Food</button>
+              <button>Science</button>
+              <button>Gaming</button>
+              <button>Energy</button>
+            </div>
+          </div>
+          <!-- 생략 -->
+          <!-- 햄버거 버튼 추가  -->
+          <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
+        </div>
+        <div class="search-box">
+          <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
+          <span id="input-area">
+            <input type="text" id="search-input" placeholder="search" />
+            <button class="search-button" onclick="searchNews()">Go</button>
+          </span>
+        </div>
       </div>
 
       <section>

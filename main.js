@@ -17,12 +17,16 @@ const render = () => {
   // UI 그려줌
   const newsHTML = newsList
     .map((news) => {
-      const image = news.urlToImage ? news.urlToImage : "Image Not Available";
+      const image = news.urlToImage
+        ? news.urlToImage
+        : "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png`";
       const content = news.description ? news.description : "No content";
+      const source = news.source ? news.source.name : "No source";
+
       return ` 
         <div class="row news row-gap-3">
             <div class="col-lg-4">
-                <img class="news-img-size" src=${news.urlToImage} alt="" />
+                <img class="news-img-size" src=${news.urlToImage} alt="" style="width: 100%;"/>
             </div>
             <div class="col-lg-8">
                 <h2 id="news-title">${news.title}</h2>
@@ -44,14 +48,25 @@ const openNav = () => {
 const closeNav = () => {
   document.getElementById("mySidenav").style.width = "0";
 };
-
 const openSearchBox = () => {
-  let inputArea = document.getElementById("input-area");
-  if (inputArea.style.display === "inline") {
-    inputArea.style.display = "none";
-  } else {
-    inputArea.style.display = "inline";
+  // 창의 너비가 768px 미만인 경우에만 실행
+  if (window.innerWidth < 768) {
+    let inputArea = document.getElementById("input-area");
+    if (inputArea.style.display === "inline") {
+      inputArea.style.display = "none";
+    } else {
+      inputArea.style.display = "inline";
+    }
   }
 };
+
+// const openSearchBox = () => {
+//   let inputArea = document.getElementById("input-area");
+//   if (inputArea.style.display === "inline") {
+//     inputArea.style.display = "none";
+//   } else {
+//     inputArea.style.display = "inline";
+//   }
+// };
 
 getLatestNews();
