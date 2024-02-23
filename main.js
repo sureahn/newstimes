@@ -12,9 +12,9 @@ menus.forEach((menu) =>
 
 const getNews = async () => {
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    if (response === 200) {
+    let response = await fetch(url);
+    let data = await response.json();
+    if ((response, status === 200)) {
       if (data.articles.length === 0) {
         throw new Error("No result for this search");
       }
@@ -109,6 +109,12 @@ const imgError = (image) => {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU";
 };
 
+const errorRender = (message) => {
+  document.getElementById(
+    "news-board"
+  ).innerHTML = `<h3 class="text-center alert alert-danger mt-1">${message}</h3>`;
+};
+
 // sidemenubar
 const openNav = () => {
   document.getElementById("mySidenav").style.width = "250px";
@@ -116,14 +122,6 @@ const openNav = () => {
 
 const closeNav = () => {
   document.getElementById("mySidenav").style.width = "0";
-};
-
-const errorRender = (errorMessage) => {
-  const errorHTML = `<div class="alert alert-danger" role="alert">
-  ${errorMessage}
-</div>`;
-
-  document.getElementById("news-board").innerHTML = errorHTML;
 };
 
 getLatestNews();
