@@ -1,56 +1,75 @@
 const API_KEY = `51e42bfd149e42b09848c52a9e31b23e`;
 let newsList = [];
 
-const menus = document.querySelectorAll(".menus button");
+let url = new URL( //전역변수로 선언해서 다른 함수에서도 사용할 수 있게
+  `https://newstimes-min.netlify.app/top-headlines?country=us&ㄴ&apiKey=${API_KEY}`
+);
+
+let menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getLatestNewsByCategory(event))
 );
 
+const getNews = async () => {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (response === 200) {
+      if (data.articles.length === 0) {
+        throw new Error("No result for this search");
+      }
+      newsList = data.articles;
+      render();
+    } else {
+      throw new error(data.message);
+    }
+  } catch (error) {
+    errorRender(error.message);
+  }
+};
+
 const getLatestNews = async () => {
-  const url = new URL(
+  url = new URL(
+    //`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
     `https://newstimes-min.netlify.app/top-headlines?country=us&apiKey=${API_KEY}`
   );
-  const response = await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
-const getLatestNewsByCategory = async (event) => {
+const getLatestNewsByCategory = (event) => {
   const category = event.target.textContent.toLowerCase();
-  const url = new URL(
+  url = new URL(
+    // `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
     `https://newstimes-min.netlify.app/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
   );
-  const response = await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
-const searchNewsByKeyword = async () => {
+const openSearchBox = () => {
+  // 창의 너비가 768px 미만인 경우에만 실행
+  if (window.innerWidth < 768) {
+    let inputArea = document.getElementById("input-area");
+    if (inputArea.style.display === "inline") {
+      inputArea.style.display = "none";
+    } else {
+      inputArea.style.display = "inline";
+    }
+  }
+};
+
+const searchNewsByKeyword = () => {
   const keyword = document.getElementById("search-input").value;
-  if (!keyword) {
-    alert("검색어를 입력하세요.");
-    return;
-  }
+  // if (!keyword) {
+  //   alert("검색어를 입력하세요.");
+  //   return;
+  // }
 
-  const url = new URL(
-    `https://newsapi.org/v2/everything?q=${keyword}&apiKey=${API_KEY}`
+  url = new URL(
+    // `https://newsapi.org/v2/everything?q=${keyword}&apiKey=${API_KEY}`
+    `https://newstimes-min.netlify.app/everything?q=${keyword}&apiKey=${API_KEY}`
   );
-  const response = await fetch(url);
-  const data = await response.json();
-
-  if (data.articles.length === 0) {
-    alert("검색 결과가 없습니다.");
-    return;
-  }
-
-  newsList = data.articles;
-  render();
+  getNews();
 };
-
-const searchButton = document.getElementById("search-button");
-searchButton.addEventListener("click", searchNewsByKeyword);
 
 const render = () => {
   const newsHTML = newsList
@@ -98,16 +117,13 @@ const openNav = () => {
 const closeNav = () => {
   document.getElementById("mySidenav").style.width = "0";
 };
-const openSearchBox = () => {
-  // 창의 너비가 768px 미만인 경우에만 실행
-  if (window.innerWidth < 768) {
-    let inputArea = document.getElementById("input-area");
-    if (inputArea.style.display === "inline") {
-      inputArea.style.display = "none";
-    } else {
-      inputArea.style.display = "inline";
-    }
-  }
+
+const errorRender = (errorMessage) => {
+  const errorHTML = `<div class="alert alert-danger" role="alert">
+  ${errorMessage}
+</div>`;
+
+  document.getElementById("news-board").innerHTML = errorHTML;
 };
 
 getLatestNews();
