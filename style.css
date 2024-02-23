@@ -42,7 +42,7 @@ body {
   display: flex;
   justify-content: start;
   align-items: center;
-  height: 70px;
+  height: 80px;
 }
 
 .nav .side-nav {
@@ -72,6 +72,21 @@ body {
 .nav .search-box i {
   margin-right: 8px;
 }
+
+#search-input {
+  padding: 8px;
+  border: 1px solid #a8a8a8;
+  border-radius: 4px;
+  color: #a8a8a8;
+}
+#search-button {
+  background-color: #7b7b7b;
+  color: #e7e7e7;
+  border: 1px solid #7b7b7b;
+  border-radius: 4px;
+  padding: 8px 16px;
+}
+
 @media (max-width: 768px) {
   .container {
     max-width: 100%;
