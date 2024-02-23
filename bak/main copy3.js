@@ -14,8 +14,7 @@ const getNews = async () => {
   try {
     let response = await fetch(url);
     let data = await response.json();
-    if (response.status === 200) {
-      // 여기서 수정
+    if (response.status === 200) { // 여기서 수정
       if (data.articles.length === 0) {
         throw new Error("No result for this search");
       }
@@ -73,7 +72,7 @@ const searchNewsByKeyword = () => {
 };
 
 const render = () => {
-  let resultHTML = newsList
+  let resultHTML = articles
     .map((news) => {
       return `<div class="news row">
         <div class="col-lg-4">
@@ -104,20 +103,51 @@ const render = () => {
 
   document.getElementById("news-board").innerHTML = resultHTML;
 
-  const imgError = (image) => {
-    image.onerror = null;
-    image.src =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU";
-  };
+// const render = () => {
+//   const newsHTML = newsList
+//     .map((news) => {
+//       const image = news.urlToImage
+//         ? news.urlToImage
+//         : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU";
+//       const content = news.description ? news.description : "No content";
+//       const source = news.source ? news.source.name : "No source";
+//       const newsDate = new Date(news.publishedAt);
+//       const formattedDate = `${newsDate.getFullYear()}-${(
+//         newsDate.getMonth() + 1
+//       )
+//         .toString()
+//         .padStart(2, "0")}-${newsDate.getDate().toString().padStart(2, "0")}`;
 
-  const errorRender = (errorMessage) => {
-    document.getElementById(
-      "news-board"
-    ).innerHTML = `<h3 class="text-center alert alert-danger mt-1">${message}</h3>`;
-  };
+//       return `
+//       <div class="row news row-gap-3">
+//         <div class="col-lg-4">
+//           <img class="news-img-size" src="${image}" alt="News Image" style="width: 100%;" onerror="imgError(this)">
+//         </div>
+//         <div class="col-lg-8">
+//           <h2 id="news-title">${news.title}</h2>
+//           <p id="news-content">${content}</p>
+//           <div>${source} / ${formattedDate}</div>
+//         </div>
+//       </div>`;
+//     })
+//     .join("");
+
+//   document.getElementById("news-board").innerHTML = newsHTML;
+// };
+
+const imgError = (image) => {
+  image.onerror = null;
+  image.src =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU";
 };
 
-// side menubar
+const errorRender = (message) => {
+  document.getElementById(
+    "news-board"
+  ).innerHTML = `<h3 class="text-center alert alert-danger mt-1">${message}</h3>`;
+};
+
+// sidemenubar
 const openNav = () => {
   document.getElementById("mySidenav").style.width = "250px";
 };
@@ -126,4 +156,4 @@ const closeNav = () => {
   document.getElementById("mySidenav").style.width = "0";
 };
 
-getLatestNews();
+getLatestNews();                                                                  
