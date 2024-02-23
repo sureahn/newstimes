@@ -1,5 +1,3 @@
-// main.js
-
 const API_KEY = `51e42bfd149e42b09848c52a9e31b23e`;
 let newsList = [];
 
@@ -10,7 +8,7 @@ menus.forEach((menu) =>
 
 const getLatestNews = async () => {
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+    `https://newstimes-min.netlify.app/top-headlines?country=us&apiKey=${API_KEY}`
   );
   const response = await fetch(url);
   const data = await response.json();
@@ -21,7 +19,7 @@ const getLatestNews = async () => {
 const getLatestNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+    `https://newstimes-min.netlify.app/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
   );
   const response = await fetch(url);
   const data = await response.json();
