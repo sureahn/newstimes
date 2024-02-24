@@ -111,7 +111,7 @@ const render = () => {
                 <h2 id="news-title">${news.title}</h2>
                 <p id="news-content">${content}</p> 
               </div>
-              <div class="news-footer d-flex justify-content-between">
+              <div class="news-footer d-flex justify-content-between align-items-end">
                 <div id="news-source">${news.source.name}</div>
                 <div id="news-date">${news.publishedAt}</div> 
               </div>
