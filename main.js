@@ -72,49 +72,42 @@ const searchNewsByKeyword = () => {
   getNews();
 };
 
+const imgError = (image) => {
+  image.onerror = null; // 이미지 에러 핸들러를 중복 호출하지 않도록 이벤트 리스너를 제거합니다.
+  image.src =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU";
+};
+
 const render = () => {
-  let resultHTML = newsList
+  // UI 그려줌
+  const newsHTML = newsList
     .map((news) => {
-      return `<div class="news row">
-        <div class="col-lg-4">
-            <img class="news-img"
-                src="${
-                  news.urlToImage ||
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU"
-                }" />
-        </div>
-        <div class="col-lg-8">
-            <a class="title" target="_blank" href="${news.url}">${
-        news.title
-      }</a>
-            <p>${
-              news.description == null || news.description == ""
-                ? "내용없음"
-                : news.description.length > 200
-                ? news.description.substring(0, 200) + "..."
-                : news.description
-            }</p>
-            <div>${news.source.name || "no source"}  ${moment(
-        news.publishedAt
-      ).fromNow()}</div>
-        </div>
-    </div>`;
+      const image = news.urlToImage
+        ? news.urlToImage
+        : "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png`";
+      const content = news.description ? news.description : "No content";
+      const source = news.source ? news.source.name : "No source";
+
+      return ` 
+        <div class="row news row-gap-3">
+            <div class="col-lg-4">
+                <img class="news-img-size" src=${news.urlToImage} alt="" style="width: 100%;"/>
+            </div>
+            <div class="col-lg-8 d-flex row">
+              <div class="news-header">
+                <h2 id="news-title">${news.title}</h2>
+                <p id="news-content">${content}</p> 
+              </div>
+              <div class="news-footer d-flex justify-content-between">
+                <div id="news-source">${news.source.name}</div>
+                <div id="news-date">${news.publishedAt}</div> 
+              </div>
+            </div>
+        </div>`;
     })
     .join("");
 
-  document.getElementById("news-board").innerHTML = resultHTML;
-
-  const imgError = (image) => {
-    image.onerror = null;
-    image.src =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU";
-  };
-
-  const errorRender = (errorMessage) => {
-    document.getElementById(
-      "news-board"
-    ).innerHTML = `<h3 class="text-center alert alert-danger mt-1">${message}</h3>`;
-  };
+  document.getElementById("news-board").innerHTML = newsHTML; // news-board에 붙임
 };
 
 // side menubar
@@ -124,6 +117,16 @@ const openNav = () => {
 
 const closeNav = () => {
   document.getElementById("mySidenav").style.width = "0";
+};
+
+const pagenationRender = () => {
+  //total result
+  //page
+  //pagesize
+  //groupsize
+  //pagegroup
+  //lastpage
+  //firstpage
 };
 
 getLatestNews();

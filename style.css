@@ -63,9 +63,23 @@ body {
   white-space: nowrap; /* 텍스트가 한 줄로만 표시되도록 함 */
   overflow: hidden; /* 요소 영역을 벗어나는 텍스트를 숨김 */
   text-overflow: ellipsis; /* 텍스트가 요소 영역을 벗어날 때 말줄임표로 표시 */
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
-.nav .side-nav {
+.news #news-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #686868;
+}
+
+.news #news-source,
+#news-date {
+  color: #a8a8a8;
+}
+
+.news .nav .side-nav {
   display: none;
 }
 
