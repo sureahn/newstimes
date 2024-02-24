@@ -44,8 +44,8 @@ const getNews = async () => {
 
 const getLatestNews = () => {
   url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
-    // `https://newstimes-min.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`
+    // `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
+    `https://newstimes-min.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`
   );
   getNews();
 };
@@ -53,8 +53,8 @@ const getLatestNews = () => {
 const getLatestNewsByCategory = (event) => {
   const category = event.target.textContent.toLowerCase();
   url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
-    // `https://newstimes-min.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+    // `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+    `https://newstimes-min.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
   );
   getNews();
 };
@@ -79,8 +79,8 @@ const searchNewsByKeyword = () => {
   // }
 
   url = new URL(
-    `https://newsapi.org/v2/everything?country=kr&q=${keyword}&apiKey=${API_KEY}`
-    // `https://newstimes-min.netlify.app/everything?q=${keyword}&country=kr&apiKey=${API_KEY}`
+    // `https://newsapi.org/v2/everything?country=kr&q=${keyword}&apiKey=${API_KEY}`
+    `https://newstimes-min.netlify.app/everything?q=${keyword}&country=kr&apiKey=${API_KEY}`
   );
   getNews();
 };
