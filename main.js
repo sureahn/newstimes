@@ -2,7 +2,7 @@ const API_KEY = `51e42bfd149e42b09848c52a9e31b23e`;
 let newsList = [];
 
 let url = new URL( //전역변수로 선언해서 다른 함수에서도 사용할 수 있게
-  `https://newstimes-min.netlify.app/top-headlines?country=us&ㄴ&apiKey=${API_KEY}`
+  `https://newstimes-min.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`
 );
 
 let menus = document.querySelectorAll(".menus button");
@@ -10,8 +10,16 @@ menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getLatestNewsByCategory(event))
 );
 
+let totalResults = 0;
+let page = 1;
+const pageSize = 5; //잘 변하지 않음
+const groupSize = 5; //잘 변하지 않음
+
 const getNews = async () => {
   try {
+    url.searchParams.set("page", page); // &page = page
+    url.searchParams.set("pageSize", pageSize);
+    //url 호출 전에 두개 값 세팅 후 콜
     let response = await fetch(url);
     let data = await response.json();
     if (response.status === 200) {
@@ -20,19 +28,24 @@ const getNews = async () => {
         throw new Error("No result for this search");
       }
       newsList = data.articles;
+      totalResults = data.totalResults;
       render();
+      paginationRender();
     } else {
       throw new Error(data.message);
     }
   } catch (error) {
     errorRender(error.message);
+    // page = 0;
+    // totalPage = 0;
+    // paginationRender();
   }
 };
 
 const getLatestNews = () => {
   url = new URL(
-    //`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
-    `https://newstimes-min.netlify.app/top-headlines?country=us&apiKey=${API_KEY}`
+    `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
+    // `https://newstimes-min.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`
   );
   getNews();
 };
@@ -40,8 +53,8 @@ const getLatestNews = () => {
 const getLatestNewsByCategory = (event) => {
   const category = event.target.textContent.toLowerCase();
   url = new URL(
-    // `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
-    `https://newstimes-min.netlify.app/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+    `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+    // `https://newstimes-min.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
   );
   getNews();
 };
@@ -66,8 +79,8 @@ const searchNewsByKeyword = () => {
   // }
 
   url = new URL(
-    // `https://newsapi.org/v2/everything?q=${keyword}&apiKey=${API_KEY}`
-    `https://newstimes-min.netlify.app/everything?q=${keyword}&country=kr&apiKey=${API_KEY}`
+    `https://newsapi.org/v2/everything?country=kr&q=${keyword}&apiKey=${API_KEY}`
+    // `https://newstimes-min.netlify.app/everything?q=${keyword}&country=kr&apiKey=${API_KEY}`
   );
   getNews();
 };
@@ -119,14 +132,46 @@ const closeNav = () => {
   document.getElementById("mySidenav").style.width = "0";
 };
 
-const pagenationRender = () => {
+const paginationRender = () => {
   //total result
   //page
   //pagesize
   //groupsize
+  //totalPages
+  const totalPages = Math.ceil(totalResults / pageSize);
   //pagegroup
+  const pageGroup = Math.ceil(page / groupSize); //ceil : 반올림
+
   //lastpage
+  const lastPage = pageGroup * groupSize;
+  //마지막 페이지 그룹이 그룹사이즈보다 작으면 lastpage = totalpage
+  if (lastPage > totalPages) {
+    lastPage = totalPages;
+  }
   //firstpage
+  const firstPage =
+    lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+
+  let paginationHTML = `<li class="page-item"><a class="page-link">Previous</a></li>
+  `;
+
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML += `<li class="page-item ${
+      i === page ? "active" : ""
+    }" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>
+    `;
+  }
+
+  paginationHTML += `<li class="page-item"><a class="page-link">Next</a></li>
+  `;
+
+  document.querySelector(".pagination").innerHTML = paginationHTML;
+};
+
+const moveToPage = (pageNum) => {
+  console.log("moveToPage", pageNum);
+  page = pageNum;
+  getNews();
 };
 
 getLatestNews();
