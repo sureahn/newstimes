@@ -55,9 +55,9 @@ body {
   padding: 1em;
 }
 
-.news-img-size {
-  max-width: 100%;
-  max-height: 220px; /* 원하는 높이로 설정 */
+.news-img {
+  width: 100%;
+  max-height: 240px; /* 원하는 높이로 설정 */
   object-fit: cover;
 }
 
@@ -121,8 +121,8 @@ s #search-input::placeholder {
   color: #a8a8a8; /* Set background color to transparent */
 }
 /* Remove background color on hover */
-.pagination .page-link:hover {
-  background-color: #b5b5b5;
+.page-link:hover {
+  background-color: #a9a9a9;
   color: #e7e7e7;
 }
 
@@ -133,7 +133,7 @@ s #search-input::placeholder {
   border: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .container {
     max-width: 100%;
     padding: 0 1em;
@@ -208,5 +208,15 @@ s #search-input::placeholder {
 
   .news {
     width: 100%;
+  }
+
+  .news #news-title {
+    font-size: 1.3rem;
+  }
+
+  .news-img {
+    max-width: 100%;
+    max-height: 100%; /* 원하는 높이로 설정 */
+    object-fit: cover;
   }
 }
